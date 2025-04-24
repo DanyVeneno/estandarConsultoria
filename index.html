@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="./img/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="./img/favicon.svg" />
+<link rel="shortcut icon" href="./img/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="./img/apple-touch-icon.png" />
+<link rel="manifest" href="./img/site.webmanifest" />
+  <title>Estandar de Consultoría EC0249 | Daniel Vallejo Chimal</title>
+  <style>
+    details.dropdown {
+      margin: 1rem 0;
+      border: 1px solid #62b6cb;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #1f2937;
+    }
+    details.dropdown summary {
+      cursor: pointer;
+      padding: 0.8rem 1rem;
+      font-weight: bold;
+      color: #62b6cb;
+      background-color: #1f2937;
+      list-style: none;
+    }
+    details.dropdown[open] summary {
+      border-bottom: 1px solid #62b6cb;
+    }
+    details.dropdown ul {
+      padding: 0 1.5rem 1rem;
+      list-style-type: disc;
+    }
+    details.dropdown ul li {
+      margin-bottom: 0.6rem;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0e1117;
+      color: #f0f2f5;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    nav {
+      background-color: #1f2937;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1001;
+    }
+
+    nav .logo {
+      color: #62b6cb;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    nav .menu {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav .menu a {
+      color: #f0f2f5;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    nav .menu a:hover {
+      color: #62b6cb;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      color: #f0f2f5;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      nav .menu {
+        display: none;
+        flex-direction: column;
+        background-color: #1f2937;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        padding: 1rem 2rem;
+      }
+      nav .menu.active {
+        display: flex;
+      }
+      .menu-toggle {
+        display: block;
+      }
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 4rem 2rem; }
+    h1, h2 { color: #62b6cb; margin-bottom: 1rem; }
+    h2 { border-left: 4px solid #62b6cb; padding-left: 1rem; font-size: 1.8rem; }
+    ul { margin-top: 1rem; padding-left: 1.5rem; }
+    ul li { margin-bottom: 0.8rem; }
+
+    .fade-in { opacity: 0; transform: translateY(30px); animation: fadeInUp 1s ease forwards; }
+    @keyframes fadeInUp { to { opacity: 1; transform: none; } }
+
+    .hero { background: linear-gradient(135deg, #1f2937, #0e1117); padding: 5rem 2rem; text-align: center; }
+    .hero .title { font-size: 2.5rem; color: #ffffff; }
+    .hero .subtitle { font-size: 1.2rem; color: #cbd5e1; margin-top: 0.5rem; }
+
+    .footer { background-color: #1a1c23; padding: 2rem; text-align: center; font-size: 0.9rem; color: #94a3b8; }
+
+    .scroll-top-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #62b6cb;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: background 0.3s;
+      display: none;
+      z-index: 1000;
+    }
+    .scroll-top-btn:hover { background: #4899b4; }
+  .scrollspy a { color: #62b6cb; text-decoration: none; font-weight: bold; }
+.scrollspy a:hover { text-decoration: underline; }
+.scrollspy ul { justify-content: center; }
+.download-section { background: #1a1c23; padding: 2rem; text-align: center; }
+.download-section a { background: #62b6cb; color: white; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: bold; transition: background 0.3s ease; }
+.download-section a:hover { background: #4899b4; }
+.desktop-only { display: none; }
+@media (min-width: 769px) { .desktop-only { display: block; } }
+.menu-toggle.rotate {
+  transform: rotate(90deg);
+  transition: transform 0.3s ease;
+}
+nav .menu {
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+}
+nav .menu.active {
+  max-height: 500px;
+  opacity: 1;
+  display: flex;
+}
+</style>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const fadeInElements = document.querySelectorAll('.fade-in');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      fadeInElements.forEach(el => observer.observe(el));
+
+      const scrollTopBtn = document.createElement('button');
+      scrollTopBtn.innerText = '↑';
+      scrollTopBtn.className = 'scroll-top-btn';
+      scrollTopBtn.title = 'Volver al inicio';
+      document.body.appendChild(scrollTopBtn);
+      scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+      window.addEventListener('scroll', () => {
+        scrollTopBtn.style.display = window.scrollY > 400 ? 'block' : 'none';
+      });
+
+      const toggle = document.querySelector('.menu-toggle');
+      const menu = document.querySelector('nav .menu');
+      if (toggle && menu) {
+        toggle.addEventListener('click', () => {
+  menu.classList.toggle('active');
+  toggle.classList.toggle('rotate');
+});
+      }
+    });
+  </script>
+</head>
+<body>
+  <nav>
+    <div class="logo">Estandar de Consultoría EC0249 por Daniel Vallejo Chimal</div>
+    <button class="menu-toggle">☰</button>
+    <div class="menu" role="navigation" aria-label="Menú principal">
+      <a href="#intro">Introducción</a>
+      <a href="#diagnostico">Diagnóstico</a>
+      <a href="#soluciones">Soluciones</a>
+      <a href="#propuesta">Propuesta</a>
+    </div>
+  </nav>
+
+<nav id="scrollspy-nav" class="scrollspy fade-in desktop-only" role="navigation" aria-label="Navegación por secciones">
+  <div class="container">
+    <ul style="display: flex; flex-wrap: wrap; gap: 1rem; list-style: none; padding: 1rem 0;">
+      <li><a href="#intro">📋 Introducción</a></li>
+      <li><a href="#diagnostico">🧨 Diagnóstico</a></li>
+      <li><a href="#info-documental">🔍 Información Documental</a></li>
+      <li><a href="#soluciones">💡 Soluciones</a></li>
+      <li><a href="#propuesta">📣 Propuesta</a></li>
+      <li><a href="#cierre">🙏 Cierre</a></li>
+    </ul>
+  </div>
+</nav>
+
+  <header class="hero fade-in">
+    <div class="container">
+      <h1 class="title wow">Diagnóstico & Consultoría Organizacional</h1>
+      <p class="subtitle">Un caso real basado en el estándar EC0249</p>
+    </div>
+  </header>
+
+  <!-- Las siguientes secciones se mantienen sin cambios por ahora -->
+  <section id="diagnostico" class="diagnostico fade-in">
+  <div class="container"><h3>📄 Cuestionario Diagnóstico</h3>
+      <p><strong>Título:</strong> Cuestionario Diagnóstico – Empresa Textil (Personal, Procesos y Percepción Organizacional)</p>
+      <p><strong>Consultor:</strong> Daniel Vallejo Chimal</p>
+
+      <h4>📋 Datos Generales del Empleado</h4>
+      <ul>
+        <li>Nombre completo (opcional): ___________________________________</li>
+        <li>Área o puesto actual: __________________________________________</li>
+        <li>Tiempo en la empresa: __________________________________________</li>
+        <li>Sucursal donde labora: __________________________________________</li>
+      </ul>
+
+      <h4>🔍 Sección A – Organización del trabajo</h4>
+      <details class="dropdown"><summary>Mostrar/Ocultar</summary><ul>
+        <li>¿Tienes claridad sobre tus funciones y tareas diarias?<br>
+            ( ) Sí ( ) A veces ( ) No</li>
+        <li>¿Existe algún manual o documento que indique cómo debes hacer tu trabajo?<br>
+            ( ) Sí ( ) No ( ) No sé</li>
+        <li>¿Con qué frecuencia cambias de área o actividad?<br>
+            ( ) Nunca ( ) A veces ( ) Muy seguido</li>
+        <li>¿Quién te da instrucciones para tus tareas?<br>
+            ( ) Un jefe directo ( ) El director ( ) Compañeros ( ) Nadie, me organizo solo/a</li>
+      </ul></details>
+
+      <h4>🤝 Sección B – Comunicación y ambiente laboral</h4>
+      <details class="dropdown"><summary>Mostrar/Ocultar</summary><ul>
+        <li>¿Qué tan claro es el proceso de comunicación con otras áreas?<br>
+            ( ) Muy claro ( ) Poco claro ( ) Confuso o inexistente</li>
+        <li>¿Sientes que hay buen ambiente de trabajo?<br>
+            ( ) Sí ( ) A veces hay conflictos ( ) No, hay tensión o discusiones constantes</li>
+        <li>¿Has presenciado conflictos o discusiones entre compañeros?<br>
+            ( ) Sí ( ) No</li>
+      </ul></details>
+
+      <h4>📦 Sección C – Recursos y herramientas</h4>
+      <details class="dropdown"><summary>Mostrar/Ocultar</summary><ul>
+        <li>¿Cuentas con el equipo y materiales necesarios para tu trabajo?<br>
+            ( ) Sí ( ) A veces faltan cosas ( ) No, frecuentemente faltan</li>
+        <li>¿Conoces qué productos hay disponibles en almacén?<br>
+            ( ) Sí ( ) A veces ( ) No, nunca sé</li>
+        <li>¿Tienes acceso a un sistema o software para revisar existencias o pedidos?<br>
+            ( ) Sí ( ) No</li>
+      </ul></details>
+
+      <h4>💡 Sección D – Mejora continua</h4>
+      <details class="dropdown"><summary>Mostrar/Ocultar</summary><ul>
+        <li>¿Te han dado capacitación desde que entraste a la empresa?<br>
+            ( ) Sí ( ) No</li>
+        <li>¿Te gustaría que existieran procedimientos más claros y organizados?<br>
+            ( ) Sí ( ) No ( ) Me da igual</li>
+        <li>¿Qué mejorarías tú dentro de la empresa?<br>
+            > ---</li>
+        <li>¿Qué necesitas tú para hacer mejor tu trabajo?<br>
+            > ---</li>
+      </ul></details>
+
+      <h4>🙏 Agradecimiento final</h4>
+      <p>Gracias por contestar este cuestionario. Tu opinión es clave para mejorar el funcionamiento de la empresa y hacer un mejor lugar de trabajo para todos.</p>
+
+      
+      <p>Tras el diagnóstico detallado, se diseñaron soluciones enfocadas en resolver las causas raíz del desorden organizacional, buscando profesionalizar la estructura de la empresa y preparar su transición hacia un modelo híbrido de negocio.</p>
+  </section>
+
+<section class="download-section fade-in">
+  <h2>📎 Recursos Adicionales</h2>
+  <p>¿Quieres guardar este portafolio? Descarga una versión en PDF o imprímelo directamente desde tu navegador.</p>
+  <a href="#" onclick="window.print(); return false;">🖨️ Descargar o Imprimir</a>
+</section>
+
+<section id="info-documental" class="info-documental fade-in">
+    <div class="container">
+      <h2>📄 Programa de Búsqueda de Información Documental</h2>
+      <p><strong>Título:</strong> Programa de Búsqueda de Información Documental – Diagnóstico Organizacional en Empresa Textil (2019)</p>
+      <p><strong>Consultor:</strong> Daniel Vallejo Chimal</p>
+
+      <h3>🎯 Objetivo</h3>
+      <p>Establecer una ruta organizada para localizar, analizar y utilizar información clave —tanto interna como externa— que permita sustentar el diagnóstico y diseñar soluciones para los problemas identificados en las áreas de producción, ventas y almacén.</p>
+
+      <h3>📂 Información Interna a Buscar</h3>
+      <details class="dropdown"><summary>Mostrar/Ocultar</summary><ul>
+        <li>Inventario físico vs sistema – Almacén</li>
+        <li>Reportes de ventas – Ventas</li>
+        <li>Pedidos pendientes – Producción/Ventas</li>
+        <li>Historial de rotación de personal – Dirección/RH</li>
+        <li>Registro de reclamos de clientes – Atención al cliente</li>
+        <li>Organigrama (si existe) – Dirección</li>
+        <li>Layout físico de áreas operativas – Producción</li>
+      </ul></details>
+
+      <h3>🌐 Información Externa a Considerar</h3>
+      <details class="dropdown"><summary>Mostrar/Ocultar</summary><ul>
+        <li>Competencia directa: precios, servicio, tiempos</li>
+        <li>Tendencias en personalización textil</li>
+        <li>Estándares de calidad: ISO, buenas prácticas</li>
+        <li>Estadísticas INEGI y Secretaría de Economía</li>
+      </ul></details>
+
+      <h3>📌 Consideraciones Metodológicas</h3>
+      <p>La información interna será solicitada directamente a los responsables de área. Se programará al menos una revisión presencial (cuando posible). La información externa se obtendrá vía web, entrevistas a proveedores y benchmarks.</p>
+
+      <h3>🧾 Productos Esperados</h3>
+      <details class="dropdown"><summary>Mostrar/Ocultar</summary><ul>
+        <li>Diagnóstico de inconsistencias de inventario</li>
+        <li>Matriz de reclamos frecuentes</li>
+        <li>Comparativo de mejores prácticas del sector</li>
+        <li>Sugerencias para rediseño interno basadas en referentes reales</li>
+      </ul></details>
+
+      <h2>📄 Reporte de Visita de Campo</h2>
+      <p><strong>Título:</strong> Reporte de Observación Directa – Empresa Textil y Personalización (Sucursal Matriz)</p>
+      <p><strong>Consultor:</strong> Daniel Vallejo Chimal</p>
+
+      <h3>🎯 Objetivo de la Visita</h3>
+      <p>Observar directamente los procesos en la sucursal matriz, identificar fallas operativas, deficiencias espaciales y conflictos visibles en la dinámica laboral.</p>
+
+      <h3>📌 Alcance</h3>
+      <ul>
+        <li>Producción (fabricación)</li>
+        <li>Maquila de personalización</li>
+        <li>Ventas y punto de venta</li>
+        <li>Almacén de distribución</li>
+      </ul>
+
+      <h3>🔍 Observaciones Clave</h3>
+      <details class="dropdown"><summary>Mostrar/Ocultar</summary><ul>
+        <li>Producción sin delimitaciones ni señalización</li>
+        <li>Equipos dispersos y sin flujo de trabajo</li>
+        <li>Personal multitarea sin claridad de funciones</li>
+        <li>Atención desorganizada en ventas</li>
+        <li>Almacén mal clasificado, sin trazabilidad</li>
+      </ul></details>
+
+      <h3>📈 Resultado de la Visita</h3>
+      <p>Se confirma un entorno improvisado, sin estandarización ni cultura de documentación. El desorden físico refleja una estructura operativa deficiente.</p>
+    </div>
+  </section>
+
+  <section id="soluciones" class="soluciones fade-in">
+    <div class="container">
+
+
+      <h3>🎯 Ejes Estratégicos de Intervención</h3>
+      <details class="dropdown"><summary>Mostrar/Ocultar</summary><ul>
+        <li><strong>Reestructuración organizacional:</strong> creación de manuales de funciones, organigrama funcional, definición de roles y responsabilidades por área.</li>
+        <li><strong>Capacitación del personal:</strong> talleres internos sobre comunicación, productividad, liderazgo y cultura organizacional (incluyendo mutualidad).</li>
+        <li><strong>Reorganización del taller:</strong> redistribución del espacio físico para un flujo lógico de trabajo con señalización y zonas de seguridad.</li>
+        <li><strong>Sistema de inventario eficiente:</strong> implementación de máximos y mínimos, codificación por colores, uso de códigos de barras y conexión con software de punto de venta.</li>
+        <li><strong>Propuesta tecnológica:</strong> diseño de un ecosistema digital administrativo interno y una plataforma externa de venta personalizada, integrando catálogo, cotizador y contacto directo.</li>
+      </ul></details>
+
+      <h3>📊 Beneficios Esperados</h3>
+      <details class="dropdown"><summary>Mostrar/Ocultar</summary><ul>
+        <li>Disminución de errores en producción, inventario y ventas.</li>
+        <li>Reducción de la rotación de personal por mejora en el clima laboral.</li>
+        <li>Mayor claridad y control en los procesos internos.</li>
+        <li>Incremento en la satisfacción del cliente y profesionalización de la imagen de la empresa.</li>
+        <li>Transición hacia un modelo comercial híbrido (físico y digital).</li>
+      </ul></details>
+
+      <h3>⚖️ Justificación</h3>
+      <p>Las soluciones propuestas fueron realistas, alineadas con los recursos existentes y diseñadas para ser implementadas de forma progresiva. Se consideraron las resistencias internas al cambio y la necesidad de fortalecer primero la estructura antes de automatizar procesos. La intención fue generar una transformación sostenible y culturalmente adecuada para una empresa de raíces familiares.</p>
+    </div>
+  </section>
+
+  <section id="propuesta" class="propuesta fade-in">
+    <div class="container">
+      <h2>📣 Presentación de la Propuesta</h2>
+      <p>Con base en el diagnóstico y las soluciones diseñadas, se estructuró una propuesta de intervención que contempla la transformación paulatina del modelo organizativo y operativo de la empresa. La propuesta busca generar impacto positivo en el corto y mediano plazo, profesionalizando las operaciones y mejorando la experiencia tanto del cliente como del colaborador.</p>
+
+      <h3>📋 Plan de Trabajo</h3>
+      <details class="dropdown"><summary>Mostrar/Ocultar</summary><ul>
+        <li><strong>Duración:</strong> 12 semanas (3 meses)</li>
+        <li><strong>Fases:</strong> Diagnóstico validado, Rediseño organizativo, Capacitación, Implementación digital, Evaluación</li>
+        <li><strong>Modalidad:</strong> Sesiones presenciales semanales + asesoría remota</li>
+      </ul></details>
+
+      <h3>👥 Responsables y Colaboradores Clave</h3>
+      <details class="dropdown"><summary>Mostrar/Ocultar</summary><ul>
+        <li><strong>Consultor Externo:</strong> Daniel Vallejo Chimal</li>
+        <li><strong>Equipo interno:</strong> Núcleo familiar (8 personas), personal clave de cada área (producción, ventas, almacén)</li>
+      </ul></details>
+
+      <h3>📦 Entregables</h3>
+      <details class="dropdown"><summary>Mostrar/Ocultar</summary><ul>
+        <li>Organigrama funcional validado</li>
+        <li>Manuales de funciones básicos por área</li>
+        <li>Informe de capacitación y bitácoras</li>
+        <li>Diseño de layout de planta actualizado</li>
+        <li>Sistema de inventario con máximos y mínimos + códigos de barra</li>
+        <li>Prototipo de plataforma digital externa</li>
+      </ul></details>
+
+      <h3>📈 Indicadores de Avance</h3>
+      <details class="dropdown"><summary>Mostrar/Ocultar</summary><ul>
+        <li>Reducción del 50% en errores de entrega en la semana 6</li>
+        <li>100% del personal capacitado en semana 8</li>
+        <li>Inventario actualizado y clasificado al 90% en semana 10</li>
+        <li>Prototipo digital validado en semana 12</li>
+      </ul></details>
+
+      <h3>📝 Registro de Acuerdos</h3>
+      <p>Se documentaron acuerdos firmados por el director general y los responsables de área, incluyendo cláusulas de confidencialidad y propiedad intelectual. Todos los entregables quedaron bajo resguardo del consultor, con respaldo digital y validación en conjunto.</p>
+    </div>
+  </section>
+
+  <section id="cierre" class="cierre fade-in">
+    <div class="container">
+      <h2>🙏 Conclusión y Agradecimiento</h2>
+      <p>Este caso real representa más que una intervención técnica: es un testimonio del poder de la observación, la empatía y el conocimiento aplicado. A través del estándar EC0249, se ha logrado estructurar una experiencia de aprendizaje profunda tanto para la organización como para el consultor.</p>
+      <p>Gracias a cada colaborador que compartió su tiempo, visión y experiencia. Este documento no sólo recopila un proceso, sino que traza el inicio de un cambio cultural hacia la profesionalización, la claridad operativa y la transformación digital.</p>
+      <p>— <strong>Daniel Vallejo Chimal</strong></p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Daniel Vallejo Chimal | Caso Consultivo EC0249</p>
+    </div>
+  </footer>
+</body>
+</html>
