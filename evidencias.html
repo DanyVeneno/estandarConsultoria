@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="./img/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link rel="icon" type="image/svg+xml" href="./img/favicon.svg" />
+    <link rel="shortcut icon" href="./img/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./img/apple-touch-icon.png"
+    />
+    <link rel="manifest" href="./img/site.webmanifest" />
+    <title>Mapa de Evidencias – Consultoría EC0249</title>
+
+    <!-- Fuente Inter -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Estilos CSS Inline -->
+    <style>
+      :root {
+        --bg: #f9fafc;
+        --text: #222;
+        --accent: #4caf50;
+        --highlight: #ffe082;
+        --dark: #1c1c1c;
+        --shadow: rgba(0, 0, 0, 0.1);
+        --font-main: "Inter", sans-serif;
+      }
+
+      .dark-mode {
+        --bg: #121212;
+        --text: #f5f5f5;
+        --highlight: #ffe082;
+        --dark: #ffffff;
+        --shadow: rgba(255, 255, 255, 0.05);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: var(--font-main);
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        transition: background 0.3s ease, color 0.3s ease;
+      }
+
+      header {
+        background-color: white;
+        padding: 1rem 2rem;
+        box-shadow: 0 2px 10px var(--shadow);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .dark-mode header {
+        background-color: #121212;
+        box-shadow: 0 2px 10px var(--shadow);
+      }
+
+      header h1 {
+        color: var(--accent);
+        font-size: 1.5rem;
+      }
+
+      nav a {
+        margin: 0 10px;
+        text-decoration: none;
+        color: var(--text);
+        font-weight: 600;
+        transition: color 0.3s;
+      }
+
+      nav a:hover {
+        color: var(--accent);
+      }
+
+      .hero {
+        padding: 5rem 2rem;
+        text-align: center;
+        background: linear-gradient(135deg, #ffffff, #e8f5e9);
+        transition: background 0.3s ease;
+      }
+
+      .dark-mode .hero {
+        background: linear-gradient(135deg, #1a1a1a, #2b2b2b);
+      }
+
+      .hero h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        font-weight: 800;
+        color: var(--dark);
+      }
+
+      .btn {
+        display: inline-block;
+        background: var(--accent);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        text-decoration: none;
+        font-weight: 600;
+        border-radius: 8px;
+        transition: background 0.3s ease;
+      }
+
+      .btn:hover {
+        background: #388e3c;
+      }
+
+      footer {
+        background: var(--dark);
+        color: white;
+        padding: 2rem;
+        text-align: center;
+      }
+
+      .btn-accent {
+        display: inline-block;
+        margin-top: 1rem;
+        padding: 0.75rem 1.5rem;
+        background: var(--accent);
+        color: white;
+        border-radius: 6px;
+        font-weight: bold;
+        text-decoration: none;
+        transition: background 0.3s ease;
+      }
+
+      .btn-accent:hover {
+        background: #2e7d32;
+      }
+
+      .toggle-theme {
+        cursor: pointer;
+        font-size: 1.2rem;
+        background: none;
+        border: none;
+        color: var(--text);
+        transition: color 0.3s ease;
+      }
+
+      /* Estilos específicos de evidencias */
+      .evidence-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+        padding: 0 2rem;
+      }
+
+      .dark-mode .evidence-grid {
+        background-color: var(--bg);
+      }
+
+      .evidence-card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px var(--shadow);
+        transition: background 0.3s ease;
+      }
+
+      .dark-mode .evidence-card {
+        background: #1e1e1e;
+        box-shadow: 0 2px 10px rgba(255, 255, 255, 0.05);
+      }
+
+      .evidence-card h3 {
+        margin-bottom: 1rem;
+        color: var(--accent);
+      }
+
+      .evidence-card ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .evidence-card li {
+        margin-bottom: 0.5rem;
+      }
+
+      .evidence-card a {
+        text-decoration: none;
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      .evidence-card a:hover {
+        color: var(--accent);
+      }
+    </style>
+
+    <!-- Script del modo oscuro -->
+    <script>
+      function toggleDarkMode() {
+        document.documentElement.classList.toggle("dark-mode");
+        const isDark = document.documentElement.classList.contains("dark-mode");
+        localStorage.setItem("darkMode", isDark);
+        updateToggleIcon(isDark);
+      }
+
+      function updateToggleIcon(isDark) {
+        const btn = document.querySelector(".toggle-theme");
+        if (btn) {
+          btn.textContent = isDark ? "☀️" : "🌙";
+        }
+      }
+
+      window.addEventListener("DOMContentLoaded", () => {
+        const savedMode = localStorage.getItem("darkMode");
+
+        if (savedMode === "true") {
+          document.documentElement.classList.add("dark-mode");
+          updateToggleIcon(true);
+        } else if (
+          savedMode === null &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+        ) {
+          document.documentElement.classList.add("dark-mode");
+          updateToggleIcon(true);
+        } else {
+          updateToggleIcon(false);
+        }
+      });
+    </script>
+  </head>
+
+  <body>
+    <header>
+      <h1>Consultoría EC0249</h1>
+      <nav>
+        <a href="index.html">Inicio</a>
+        <a href="metodologia.html">Metodología</a>
+        <a href="evidencias.html">Evidencias</a>
+        <a href="herramientas.html">Herramientas</a>
+        <a href="portafolio.html">Caso Textil</a>
+        <a href="contacto.html">Contacto</a>
+      </nav>
+      <button
+        class="toggle-theme"
+        onclick="toggleDarkMode()"
+        title="Cambiar tema"
+      >
+        🌙
+      </button>
+    </header>
+
+    <main style="padding: 3rem 2rem">
+      <h2 style="font-size: 2rem; margin-bottom: 2rem">
+        📚 Mapa de Evidencias por Elemento
+      </h2>
+      <p style="max-width: 800px; margin-bottom: 2rem">
+        A continuación se presenta un resumen de las evidencias generadas
+        durante el caso de consultoría en la empresa textil. Cada una está
+        vinculada con el estándar EC0249 y responde a un propósito específico.
+      </p>
+
+      <section class="evidence-grid">
+        <!-- Elemento 1 -->
+        <div class="evidence-card">
+          <h3>🧩 Elemento 1</h3>
+          <ul>
+            <li>
+              <a href="docs/E1_DESCRIPCION_DEL_PROBLEMA.pdf" target="_blank"
+                >Descripción del Problema</a
+              >
+            </li>
+            <li>
+              <a href="docs/E1_CONGRUENCIA_AFECTACION.pdf" target="_blank"
+                >Congruencia y Afectación</a
+              >
+            </li>
+            <li>
+              <a href="docs/E1_INFORMACION_PRESENTADA.pdf" target="_blank"
+                >Información Recopilada</a
+              >
+            </li>
+            <li>
+              <a href="docs/E1_METODOLOGIA.pdf" target="_blank"
+                >Reporte de Metodología</a
+              >
+            </li>
+            <li>
+              <a href="docs/E1_GUIA_ENTREVISTA.pdf" target="_blank"
+                >Guía de Entrevista</a
+              >
+            </li>
+            <li>
+              <a href="docs/E1_CUESTIONARIO.pdf" target="_blank"
+                >Cuestionario</a
+              >
+            </li>
+            <li>
+              <a href="docs/E1_PROG_BUSQUEDA.pdf" target="_blank"
+                >Programa de Búsqueda</a
+              >
+            </li>
+            <li>
+              <a href="docs/E1_REPORTE_CAMPO.pdf" target="_blank"
+                >Reporte de Visita de Campo</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <!-- Elemento 2 -->
+        <div class="evidence-card">
+          <h3>🛠️ Elemento 2</h3>
+          <ul>
+            <li>
+              <a href="docs/E2_AFECTACIONES.pdf" target="_blank"
+                >Reporte de Afectaciones</a
+              >
+            </li>
+            <li>
+              <a href="docs/E2_SOLUCION_DISEÑADA.pdf" target="_blank"
+                >Solución Diseñada</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <!-- Elemento 3 -->
+        <div class="evidence-card">
+          <h3>📦 Elemento 3</h3>
+          <ul>
+            <li>
+              <a href="docs/E3_PROPUESTA_TRABAJO.pdf" target="_blank"
+                >Propuesta de Trabajo</a
+              >
+            </li>
+            <li>
+              <a href="docs/E3_DESCRIPCION_SOLUCION.pdf" target="_blank"
+                >Descripción de la Solución</a
+              >
+            </li>
+            <li>
+              <a href="docs/E3_PLAN_ACTIVIDADES.pdf" target="_blank"
+                >Plan de Trabajo y Actividades</a
+              >
+            </li>
+            <li>
+              <a href="docs/E3_REGISTRO_ACUERDOS.pdf" target="_blank"
+                >Registro de Acuerdos</a
+              >
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        ¿Te gustaría implementar una consultoría con estructura profesional?
+      </p>
+      <a href="contacto.html" class="btn-accent">Hablemos</a>
+    </footer>
+  </body>
+</html>

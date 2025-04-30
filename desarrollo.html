@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="./img/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link rel="icon" type="image/svg+xml" href="./img/favicon.svg" />
+    <link rel="shortcut icon" href="./img/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./img/apple-touch-icon.png"
+    />
+    <link rel="manifest" href="./img/site.webmanifest" />
+    <title>Consultoría EC0249 – Caso Real</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg: #f9fafc;
+        --text: #222;
+        --accent: #4caf50;
+        --highlight: #ffe082;
+        --dark: #1c1c1c;
+        --shadow: rgba(0, 0, 0, 0.1);
+        --font-main: "Inter", sans-serif;
+      }
+
+      .dark-mode {
+        --bg: #121212;
+        --text: #f5f5f5;
+        --highlight: #ffe082;
+        --dark: #ffffff;
+        --shadow: rgba(255, 255, 255, 0.05);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: var(--font-main);
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        transition: background 0.3s ease, color 0.3s ease;
+      }
+
+      header {
+        background-color: white;
+        padding: 1rem 2rem;
+        box-shadow: 0 2px 10px var(--shadow);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .dark-mode header {
+        background-color: #121212;
+        box-shadow: 0 2px 10px var(--shadow);
+      }
+
+      header h1 {
+        color: var(--accent);
+        font-size: 1.5rem;
+      }
+
+      nav a {
+        margin: 0 10px;
+        text-decoration: none;
+        color: var(--text);
+        font-weight: 600;
+        transition: color 0.3s;
+      }
+
+      nav a:hover {
+        color: var(--accent);
+      }
+
+      .hero {
+        padding: 5rem 2rem;
+        text-align: center;
+        background: linear-gradient(135deg, #ffffff, #e8f5e9);
+        transition: background 0.3s ease;
+      }
+
+      .dark-mode .hero {
+        background: linear-gradient(135deg, #1a1a1a, #2b2b2b);
+      }
+
+      .hero h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        font-weight: 800;
+        color: var(--dark);
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+      }
+
+      .btn {
+        display: inline-block;
+        background: var(--accent);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        text-decoration: none;
+        font-weight: 600;
+        border-radius: 8px;
+        transition: background 0.3s ease;
+      }
+
+      .btn:hover {
+        background: #388e3c;
+      }
+
+      footer {
+        background: var(--dark);
+        color: white;
+        padding: 2rem;
+        text-align: center;
+      }
+
+      .btn-accent {
+        display: inline-block;
+        margin-top: 1rem;
+        padding: 0.75rem 1.5rem;
+        background: var(--accent);
+        color: white;
+        border-radius: 6px;
+        font-weight: bold;
+        text-decoration: none;
+        transition: background 0.3s ease;
+      }
+
+      .btn-accent:hover {
+        background: #2e7d32;
+      }
+
+      .toggle-theme {
+        cursor: pointer;
+        font-size: 1.2rem;
+        background: none;
+        border: none;
+        color: var(--text);
+        transition: color 0.3s ease;
+      }
+    </style>
+
+    <script>
+      function toggleDarkMode() {
+        document.documentElement.classList.toggle("dark-mode");
+        const isDark = document.documentElement.classList.contains("dark-mode");
+        localStorage.setItem("darkMode", isDark);
+        updateToggleIcon(isDark);
+      }
+
+      function updateToggleIcon(isDark) {
+        const btn = document.querySelector(".toggle-theme");
+        btn.textContent = isDark ? "☀️" : "🌙";
+      }
+
+      window.addEventListener("DOMContentLoaded", () => {
+        const savedMode = localStorage.getItem("darkMode");
+
+        if (savedMode === "true") {
+          document.documentElement.classList.add("dark-mode");
+          updateToggleIcon(true);
+        } else if (
+          savedMode === null &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+        ) {
+          // Si no ha elegido nada y su sistema es oscuro
+          document.documentElement.classList.add("dark-mode");
+          updateToggleIcon(true);
+        } else {
+          updateToggleIcon(false);
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <header>
+      <h1>Consultoría EC0249</h1>
+      <nav>
+        <a href="index.html">Inicio</a>
+        <a href="metodologia.html">Metodología</a>
+        <a href="evidencias.html">Evidencias</a>
+        <a href="herramientas.html">Herramientas</a>
+        <a href="portafolio.html">Caso Textil</a>
+        <a href="contacto.html">Contacto</a>
+      </nav>
+      <button
+        class="toggle-theme"
+        onclick="toggleDarkMode()"
+        title="Cambiar tema"
+      >
+        🌙
+      </button>
+    </header>
+
+    <section class="hero">
+      <h2>Transformamos problemas reales en estructuras funcionales</h2>
+      <p>
+        Una experiencia consultiva viva, basada en el estándar EC0249 y adaptada
+        al mundo digital.
+      </p>
+      <a href="portafolio.html" class="btn">Ver caso real</a>
+    </section>
+
+    <footer>
+      <p>¿Listo para comenzar tu transformación organizacional?</p>
+      <a href="contacto.html" class="btn-accent">Solicita una consultoría</a>
+    </footer>
+
+    <!-- Puedes mover esto a un archivo externo si prefieres modularizar -->
+    <script src="./js/main.js"></script>
+  </body>
+</html>

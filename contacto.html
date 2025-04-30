@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="./img/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link rel="icon" type="image/svg+xml" href="./img/favicon.svg" />
+    <link rel="shortcut icon" href="./img/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./img/apple-touch-icon.png"
+    />
+    <link rel="manifest" href="./img/site.webmanifest" />
+    <title>Contacto – Consultoría EC0249</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg: #f9fafc;
+        --text: #222;
+        --accent: #4caf50;
+        --highlight: #ffe082;
+        --dark: #1c1c1c;
+        --shadow: rgba(0, 0, 0, 0.1);
+        --font-main: "Inter", sans-serif;
+      }
+
+      .dark-mode {
+        --bg: #121212;
+        --text: #f5f5f5;
+        --highlight: #ffe082;
+        --dark: #ffffff;
+        --shadow: rgba(255, 255, 255, 0.05);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: var(--font-main);
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        transition: background 0.3s ease, color 0.3s ease;
+      }
+
+      header {
+        background-color: white;
+        padding: 1rem 2rem;
+        box-shadow: 0 2px 10px var(--shadow);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .dark-mode header {
+        background-color: #121212;
+        box-shadow: 0 2px 10px rgba(255, 255, 255, 0.05);
+      }
+
+      header h1 {
+        color: var(--accent);
+        font-size: 1.5rem;
+      }
+
+      nav a {
+        margin: 0 10px;
+        text-decoration: none;
+        color: var(--text);
+        font-weight: 600;
+        transition: color 0.3s;
+      }
+
+      nav a:hover {
+        color: var(--accent);
+      }
+
+      .hero {
+        padding: 5rem 2rem;
+        text-align: center;
+        background: linear-gradient(135deg, #ffffff, #e8f5e9);
+        transition: background 0.3s ease;
+      }
+
+      .dark-mode .hero {
+        background: linear-gradient(135deg, #1a1a1a, #2b2b2b);
+      }
+
+      .hero h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        font-weight: 800;
+        color: var(--dark);
+      }
+
+      .btn {
+        display: inline-block;
+        background: var(--accent);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        text-decoration: none;
+        font-weight: 600;
+        border-radius: 8px;
+        transition: background 0.3s ease;
+      }
+
+      .btn:hover {
+        background: #388e3c;
+      }
+
+      footer {
+        background: var(--dark);
+        color: white;
+        padding: 2rem;
+        text-align: center;
+      }
+
+      .toggle-theme {
+        cursor: pointer;
+        font-size: 1.2rem;
+        background: none;
+        border: none;
+        color: var(--text);
+        transition: color 0.3s;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      input,
+      textarea {
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+        background: white;
+        color: var(--text);
+        transition: all 0.3s ease;
+      }
+
+      .dark-mode input,
+      .dark-mode textarea {
+        background: #1e1e1e;
+        border: 1px solid #444;
+        color: var(--text);
+      }
+
+      label {
+        font-weight: bold;
+        margin-top: 1rem;
+      }
+
+      form .btn {
+        background: var(--accent);
+        color: white;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        padding: 0.75rem;
+        border-radius: 8px;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+
+    <script>
+      function toggleDarkMode() {
+        document.documentElement.classList.toggle("dark-mode");
+        const isDark = document.documentElement.classList.contains("dark-mode");
+        localStorage.setItem("darkMode", isDark);
+        updateToggleIcon(isDark);
+      }
+
+      function updateToggleIcon(isDark) {
+        const btn = document.querySelector(".toggle-theme");
+        btn.textContent = isDark ? "☀️" : "🌙";
+      }
+
+      window.addEventListener("DOMContentLoaded", () => {
+        const savedMode = localStorage.getItem("darkMode");
+
+        if (savedMode === "true") {
+          document.documentElement.classList.add("dark-mode");
+          updateToggleIcon(true);
+        } else if (
+          savedMode === null &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+        ) {
+          document.documentElement.classList.add("dark-mode");
+          updateToggleIcon(true);
+        } else {
+          updateToggleIcon(false);
+        }
+      });
+    </script>
+  </head>
+
+  <body>
+    <header>
+      <h1>Consultoría EC0249</h1>
+      <nav>
+        <a href="index.html">Inicio</a>
+        <a href="metodologia.html">Metodología</a>
+        <a href="evidencias.html">Evidencias</a>
+        <a href="herramientas.html">Herramientas</a>
+        <a href="portafolio.html">Caso Textil</a>
+        <a href="contacto.html">Contacto</a>
+      </nav>
+      <button
+        class="toggle-theme"
+        onclick="toggleDarkMode()"
+        title="Cambiar tema"
+      >
+        🌙
+      </button>
+    </header>
+
+    <main style="padding: 4rem 2rem">
+      <h2 style="font-size: 2rem; margin-bottom: 2rem">📬 Ponte en contacto</h2>
+      <p style="max-width: 700px; margin-bottom: 2rem">
+        Si deseas agendar una consultoría, colaborar o simplemente intercambiar
+        ideas sobre transformación organizacional y herramientas digitales,
+        llena el siguiente formulario o utiliza los medios de contacto directo.
+      </p>
+
+      <form
+        action="mailto:tu-correo@dominio.com"
+        method="POST"
+        enctype="text/plain"
+        style="max-width: 600px; margin: auto"
+      >
+        <label for="name">Nombre completo</label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          required
+          placeholder="Tu nombre..."
+        />
+
+        <label for="email">Correo electrónico</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          required
+          placeholder="correo@ejemplo.com"
+        />
+
+        <label for="message">Mensaje</label>
+        <textarea
+          name="message"
+          id="message"
+          rows="5"
+          required
+          placeholder="¿En qué puedo ayudarte?"
+        ></textarea>
+
+        <button type="submit" class="btn">Enviar mensaje</button>
+      </form>
+
+      <div style="margin-top: 3rem; text-align: center">
+        <p>📧 También puedes escribirme directamente:</p>
+        <p>
+          <strong>Email:</strong>
+          <a href="mailto:holadhan@proton.me">holadhan@proton.me</a>
+        </p>
+        <p>
+          <strong>WhatsApp:</strong>
+          <a href="https://wa.me/521XXXXXXXXXX" target="_blank"
+            >+52 5610731990</a
+          >
+        </p>
+        <p>
+          <strong>Tarjeta de Presentación:</strong>
+          <a href="https://ybestudio.tech" target="_blank">Contactanos</a>
+        </p>
+      </div>
+    </main>
+
+    <footer>
+      <p>
+        Gracias por visitar este portafolio de transformación. ¡Estamos en
+        contacto!
+      </p>
+    </footer>
+  </body>
+</html>

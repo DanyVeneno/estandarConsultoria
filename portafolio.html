@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="./img/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link rel="icon" type="image/svg+xml" href="./img/favicon.svg" />
+    <link rel="shortcut icon" href="./img/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./img/apple-touch-icon.png"
+    />
+    <link rel="manifest" href="./img/site.webmanifest" />
+    <title>Caso Textil – Portafolio EC0249</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg: #f9fafc;
+        --text: #222;
+        --accent: #4caf50;
+        --highlight: #ffe082;
+        --dark: #1c1c1c;
+        --shadow: rgba(0, 0, 0, 0.1);
+        --font-main: "Inter", sans-serif;
+      }
+
+      .dark-mode {
+        --bg: #121212;
+        --text: #f5f5f5;
+        --highlight: #ffe082;
+        --dark: #ffffff;
+        --shadow: rgba(255, 255, 255, 0.05);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: var(--font-main);
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        transition: background 0.3s ease, color 0.3s ease;
+      }
+
+      header {
+        background-color: white;
+        padding: 1rem 2rem;
+        box-shadow: 0 2px 10px var(--shadow);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .dark-mode header {
+        background-color: #121212;
+        box-shadow: 0 2px 10px var(--shadow);
+        color: var(--text);
+      }
+
+      header h1 {
+        color: var(--accent);
+        font-size: 1.5rem;
+      }
+
+      nav a {
+        margin: 0 10px;
+        text-decoration: none;
+        color: var(--text);
+        font-weight: 600;
+        transition: color 0.3s;
+      }
+
+      nav a:hover {
+        color: var(--accent);
+      }
+
+      .hero {
+        padding: 5rem 2rem;
+        text-align: center;
+        background: linear-gradient(135deg, #ffffff, #e8f5e9);
+        transition: background 0.3s ease;
+      }
+
+      .dark-mode .hero {
+        background: linear-gradient(135deg, #1a1a1a, #2b2b2b);
+      }
+
+      .hero h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        font-weight: 800;
+        color: var(--dark);
+      }
+
+      .btn {
+        display: inline-block;
+        background: var(--accent);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        text-decoration: none;
+        font-weight: 600;
+        border-radius: 8px;
+        transition: background 0.3s ease;
+      }
+
+      .btn:hover {
+        background: #388e3c;
+      }
+
+      footer {
+        background: var(--dark);
+        color: white;
+        padding: 2rem;
+        text-align: center;
+      }
+
+      .btn-accent {
+        display: inline-block;
+        margin-top: 1rem;
+        padding: 0.75rem 1.5rem;
+        background: var(--accent);
+        color: white;
+        border-radius: 6px;
+        font-weight: bold;
+        text-decoration: none;
+        transition: background 0.3s ease;
+      }
+
+      .btn-accent:hover {
+        background: #2e7d32;
+      }
+
+      .toggle-theme {
+        cursor: pointer;
+        font-size: 1.2rem;
+        background: none;
+        border: none;
+        color: var(--text);
+        transition: color 0.3s ease;
+      }
+
+      .timeline {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .timeline-item {
+        border-left: 4px solid var(--accent);
+        margin-bottom: 2rem;
+        padding-left: 1rem;
+        position: relative;
+        background-color: transparent;
+        transition: background 0.3s ease;
+      }
+
+      .dark-mode .timeline-item {
+        background: #1e1e1e;
+        border-left-color: var(--accent);
+        padding: 1.5rem;
+        border-radius: 8px;
+      }
+
+      .timeline-item::before {
+        content: "●";
+        position: absolute;
+        left: -11px;
+        color: var(--accent);
+        font-size: 1.2rem;
+        top: 0.1rem;
+      }
+
+      .timeline-item h3 {
+        color: var(--dark);
+        margin-bottom: 0.5rem;
+      }
+
+      .dark-mode .timeline-item h3 {
+        color: var(--highlight);
+      }
+
+      .timeline-item p {
+        color: var(--text);
+      }
+
+      .dark-mode .timeline-item p {
+        color: var(--text);
+      }
+    </style>
+
+    <!-- Script del Modo Oscuro -->
+    <script>
+      function toggleDarkMode() {
+        document.documentElement.classList.toggle("dark-mode");
+        const isDark = document.documentElement.classList.contains("dark-mode");
+        localStorage.setItem("darkMode", isDark);
+        updateToggleIcon(isDark);
+      }
+
+      function updateToggleIcon(isDark) {
+        const btn = document.querySelector(".toggle-theme");
+        if (btn) {
+          btn.textContent = isDark ? "☀️" : "🌙";
+        }
+      }
+
+      window.addEventListener("DOMContentLoaded", () => {
+        const savedMode = localStorage.getItem("darkMode");
+
+        if (savedMode === "true") {
+          document.documentElement.classList.add("dark-mode");
+          updateToggleIcon(true);
+        } else if (
+          savedMode === null &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+        ) {
+          document.documentElement.classList.add("dark-mode");
+          updateToggleIcon(true);
+        } else {
+          updateToggleIcon(false);
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <header>
+      <h1>Consultoría EC0249</h1>
+      <nav>
+        <a href="index.html">Inicio</a>
+        <a href="metodologia.html">Metodología</a>
+        <a href="evidencias.html">Evidencias</a>
+        <a href="herramientas.html">Herramientas</a>
+        <a href="portafolio.html">Caso Textil</a>
+        <a href="contacto.html">Contacto</a>
+      </nav>
+      <button
+        class="toggle-theme"
+        onclick="toggleDarkMode()"
+        title="Cambiar tema"
+      >
+        🌙
+      </button>
+    </header>
+
+    <main style="padding: 3rem 2rem">
+      <h2 style="font-size: 2rem; margin-bottom: 2rem">
+        🧵 Caso Real – Empresa Textil
+      </h2>
+
+      <section class="timeline">
+        <div class="timeline-item">
+          <h3>📍 Diagnóstico Intuitivo (2019)</h3>
+          <p>
+            Sin conocer el EC0249 aún, el consultor identificó problemas
+            organizacionales graves: rotación de personal, multitareas forzadas,
+            procesos inexistentes y desorden operativo. Se inició un diagnóstico
+            empírico basado en observación directa y experiencia previa.
+          </p>
+        </div>
+
+        <div class="timeline-item">
+          <h3>🧠 Análisis con Herramientas Estratégicas</h3>
+          <p>
+            Se aplicaron herramientas como FODA, Canvas, análisis de zona de
+            confort, perfil de cliente y la "pirámide de mutualidad", generando
+            insights clave. Se construyó una <strong>matriz causal</strong> para
+            vincular síntomas y causas raíz.
+          </p>
+        </div>
+
+        <div class="timeline-item">
+          <h3>🔧 Propuesta de Solución</h3>
+          <p>
+            Se diseñó una solución integral que incluyó: reorganización del
+            taller, sistema básico de inventario, guía de atención al cliente,
+            digitalización externa y creación de procesos internos. La propuesta
+            fue validada por la dirección operativa (núcleo familiar).
+          </p>
+        </div>
+
+        <div class="timeline-item">
+          <h3>💡 Implementación Inicial</h3>
+          <p>
+            Se ejecutó parcialmente la fase de reorganización interna, activando
+            roles y herramientas de control visual. Se iniciaron capacitaciones
+            internas y dinámicas de sensibilización.
+          </p>
+        </div>
+
+        <div class="timeline-item">
+          <h3>⏸️ Interrupción por pandemia</h3>
+          <p>
+            El proceso se detuvo a inicios de 2020 debido a la emergencia
+            sanitaria. Sin embargo, las bases de transformación ya estaban
+            sembradas y pueden reactivarse o adaptarse a nuevas empresas.
+          </p>
+        </div>
+
+        <div class="timeline-item">
+          <h3>📁 Resultado: Portafolio EC0249</h3>
+          <p>
+            Hoy, esta experiencia se ha sistematizado como
+            <strong>portafolio de consultoría real</strong>, demostrando cómo
+            una intervención empírica puede alinearse al estándar nacional con
+            enfoque profesional, herramientas prácticas y visión humana.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>¿Te gustaría iniciar un proceso de cambio en tu empresa como este?</p>
+      <a href="contacto.html" class="btn-accent">Agendar una sesión</a>
+    </footer>
+  </body>
+</html>
